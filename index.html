@@ -154,6 +154,61 @@
       color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 500;
     }
 
+    /* ── HERO LAYOUT ── */
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .hero-visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.75rem;
+    }
+    .hero-profile-wrap {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(14,165,160,.55);
+      box-shadow: 0 0 0 8px rgba(14,165,160,.1), 0 8px 32px rgba(0,0,0,.35);
+      flex-shrink: 0;
+    }
+    .hero-profile {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .hero-lifecycle-wrap {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 16px;
+      padding: 1.25rem;
+      backdrop-filter: blur(6px);
+      width: 100%;
+    }
+    .hero-lifecycle {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      opacity: .92;
+      filter: brightness(1.05);
+    }
+    @media (max-width: 860px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+      .hero-visual {
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero-lifecycle-wrap {
+        max-width: 320px;
+      }
+    }
+
     /* ── EXPERTISE ── */
     #expertise { background: var(--smoke); }
 
@@ -413,29 +468,46 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-inner container">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        Available for new opportunities
-      </div>
-      <h1 class="hero-name">Abinash<br><em>Baral</em></h1>
-      <p class="hero-role">Product Manager · Mobility &amp; Connected Vehicles</p>
-      <p class="hero-abstract">
-        I work on connected vehicles and mobility products. What I bring to the table is
-        that I can actually read the CAN bus data, understand why firmware behaves a certain
-        way, and use that context to make better product calls — rather than just
-        coordinating between people who do.
-      </p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-outline">Get in Touch</a>
-      </div>
-      <div class="hero-chips">
-        <span class="chip">Product Strategy</span>
-        <span class="chip">Telematics</span>
-        <span class="chip">IoT &amp; Connected Vehicles</span>
-        <span class="chip">CAN Protocols</span>
-        <span class="chip">API &amp; Platform Integrations</span>
-        <span class="chip">Fleet Management</span>
+      <div class="hero-layout">
+
+        <!-- Left: text -->
+        <div class="hero-text">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Available for new opportunities
+          </div>
+          <h1 class="hero-name">Abinash<br><em>Baral</em></h1>
+          <p class="hero-role">Product Manager · Mobility &amp; Connected Vehicles</p>
+          <p class="hero-abstract">
+            I work on connected vehicles and mobility products. What I bring to the table is
+            that I can actually read the CAN bus data, understand why firmware behaves a certain
+            way, and use that context to make better product calls — rather than just
+            coordinating between people who do.
+          </p>
+          <div class="hero-cta">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-outline">Get in Touch</a>
+          </div>
+          <div class="hero-chips">
+            <span class="chip">Product Strategy</span>
+            <span class="chip">Telematics</span>
+            <span class="chip">IoT &amp; Connected Vehicles</span>
+            <span class="chip">CAN Protocols</span>
+            <span class="chip">API &amp; Platform Integrations</span>
+            <span class="chip">Fleet Management</span>
+          </div>
+        </div>
+
+        <!-- Right: profile photo + lifecycle diagram -->
+        <div class="hero-visual">
+          <div class="hero-profile-wrap">
+            <img src="profile.png" alt="Abinash Baral" class="hero-profile" />
+          </div>
+          <div class="hero-lifecycle-wrap">
+            <img src="product_lifecycle_no_bg.png" alt="Product Management Lifecycle" class="hero-lifecycle" />
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
