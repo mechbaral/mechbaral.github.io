@@ -301,7 +301,7 @@
     .project-tag {
       display: inline-block;
       background: rgba(30,58,138,.2); border: 1px solid rgba(30,58,138,.4);
-      color: var(--teal); border-radius: 100px;
+      color: var(--white); border-radius: 100px;
       padding: .25rem .75rem; font-size: .72rem; font-weight: 600;
       margin-bottom: .85rem; letter-spacing: .04em; text-transform: uppercase;
     }
@@ -646,39 +646,19 @@
       <p class="section-label fade-in">Core Expertise</p>
       <h2 class="section-title fade-in">How I work</h2>
       <p class="section-sub fade-in">
-        Before I write a spec or plan a sprint, I ask: are we solving the right problem?
-        These are the things I try to get right on every project.
+        Before I write a spec or plan a sprint, I ask: are we solving the actual problem?
+        These are the things I do for making sure the product is successful.
       </p>
       <div class="pillars-grid">
 
         <div class="pillar-card fade-in">
           <div class="pillar-icon teal">🔍</div>
-          <div class="pillar-name">Customer Insight</div>
+          <div class="pillar-name">Market Insight</div>
           <p class="pillar-desc">
-            I talk to operators and riders regularly — not just at the start of a project,
-            but throughout. The best calls I've made came from a conversation, not a dashboard.
+            I talk to operators and riders regularly to understand the market not just at the start 
+            but throughout the product lifecycle. The best decisions I've made are derived from a conversation backed by data.
           </p>
         </div>
-
-        <div class="pillar-card fade-in">
-          <div class="pillar-icon amber">⚡</div>
-          <div class="pillar-name">Differentiation &amp; Competitive Thinking</div>
-          <p class="pillar-desc">
-            I keep an eye on what competitors are doing, but I'm more interested in what
-            they're not doing. That gap is usually where the real opportunity sits.
-          </p>
-        </div>
-
-        <div class="pillar-card fade-in">
-          <div class="pillar-icon navy">🎯</div>
-          <div class="pillar-name">End-to-End Ownership</div>
-          <p class="pillar-desc">
-            I stay involved from the first conversation about a problem through to
-            seeing whether it actually worked. Handing off once something ships
-            doesn't feel like ownership to me.
-          </p>
-        </div>
-
         <div class="pillar-card fade-in">
           <div class="pillar-icon rose">📊</div>
           <div class="pillar-name">Data &amp; Metrics Ownership</div>
@@ -688,17 +668,20 @@
             I'm comfortable writing SQL and building dashboards to get to the answer myself.
           </p>
         </div>
-
         <div class="pillar-card fade-in">
           <div class="pillar-icon violet">🤝</div>
           <div class="pillar-name">Aligning Stakeholders</div>
           <p class="pillar-desc">
-            Getting engineering, hardware, ops, and leadership on the same page is genuinely
-            hard. I spend a lot of time writing things down clearly and making trade-offs
-            explicit so the same decision doesn't get relitigated three times.
+            Getting both internal and external stakeholders (customer, ops, engineering and leadership) on the same page is the important. I spend time to talk to every stakeholder and make sure everyone is on the same page resulting in successful outcome.
           </p>
         </div>
-
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon navy">🎯</div>
+          <div class="pillar-name">Product Ownership</div>
+          <p class="pillar-desc">
+            I stay involved from the product inceptions to  defining the problem and designing the solution. As we build the product I take ownership of every aspect to make sure the product I own is the product that is needed.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -723,13 +706,11 @@
           </div>
           <div class="project-body">
             <p class="project-abstract">
-              Before this, operators had no visibility into what vehicles were doing until
-              something went wrong. We connected GEM Cars and Yamaha vehicles to the cloud
-              so the team could actually see what was happening — and act on it — in real time.
-            </p>
+              Before this, operators had manual way of renting vehicles which was both time and resource intensive. We connected GEM Cars and Yamaha vehicles to the cloud instaling after market devices tailored to the fleet need so the operator could actually deploy vehicle without having anyone on site while monitoring and checking all necessary points they requrie for operations.</p>
             <div class="project-chips-row">
               <div class="vehicle-chip"><span class="vehicle-chip-icon">🚗</span> GEM Car</div>
-              <div class="vehicle-chip"><span class="vehicle-chip-icon">🛺</span> Yamaha Car</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">⛳</span> Yamaha Golf Cart</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🚘</span> Smart Car</div>
             </div>
             <div class="project-pillars">
               <span class="project-pill">Platform Strategy</span>
@@ -741,7 +722,7 @@
             <div class="project-outcome">
               <span class="project-outcome-icon">🎯</span>
               <span>
-                Operators could check vehicle status remotely, diagnose issues faster, and
+                Operators could deploy vehicle without staff while checking vehicle status remotely, diagnose issues faster, and
                 start making decisions based on actual usage data instead of guesswork.
               </span>
             </div>
@@ -758,9 +739,7 @@
           <div class="project-body">
             <p class="project-abstract">
               Different vehicle partners sent data in completely different formats — some
-              through REST APIs, some over raw TCP connections. That made it really hard to
-              build anything reliable on top. We built one shared data layer so the rest of
-              the platform didn't have to care about those differences.
+              through REST APIs, some over raw TCP connections. We built one platform that can communicate to all different type of protocols so that the platform user dont have to worry about them.
             </p>
             <div class="project-chips-row">
               <div class="vehicle-chip"><span class="vehicle-chip-icon">🔗</span> REST API</div>
@@ -777,7 +756,7 @@
             <div class="project-outcome">
               <span class="project-outcome-icon">🎯</span>
               <span>
-                Adding a new vehicle type became much faster, and GPS tracking, diagnostics,
+                Adding a new vehicle was an instant task making it faster for operators to try new vehicles .Parsing data like GPS tracking, diagnostics,
                 and usage analytics became available across the whole fleet through one
                 consistent interface.
               </span>
@@ -789,33 +768,28 @@
         <div class="project-card fade-in">
           <div class="project-header green">
             <span class="project-tag">Diagnostic Tooling</span>
-            <h3 class="project-title">Gopal Desk — Vehicle Diagnostic Platform</h3>
+            <h3 class="project-title">Gopal Desk — One tool for all</h3>
             <p class="project-company">Internal Tool · Fleet Operations</p>
           </div>
           <div class="project-body">
             <p class="project-abstract">
-              As the fleet grew, figuring out what was wrong with a vehicle was taking too
-              long. The support and ops team were piecing things together from raw logs and
-              instinct. Gopal Desk was built to give anyone on the team the tools to properly
-              understand a vehicle — what it's doing, what it was doing, and why it failed.
+              As the vehicle types grew with fleet, figuring out what was wrong with a vehicle was taking too
+              long. The support and ops team were piecing things together while customer was trying to understand what happened. Gopal Desk was built so the person involved dont have to piece together systems just to understand their device they are working with thus allowing them to know  — what it's doing, what it was doing, and why it failed.
             </p>
             <div class="project-chips-row">
               <div class="vehicle-chip"><span class="vehicle-chip-icon">🔧</span> Vehicle Debugging</div>
               <div class="vehicle-chip"><span class="vehicle-chip-icon">📋</span> Full Diagnostics</div>
             </div>
             <div class="project-pillars">
-              <span class="project-pill">Internal Platform Strategy</span>
-              <span class="project-pill">Operational Leverage</span>
-              <span class="project-pill">CAN Data</span>
-              <span class="project-pill">Support Tooling</span>
+              <span class="project-pill">Tool for Success</span>
+              <span class="project-pill">TCP Portal</span>
+              <span class="project-pill">Local System</span>
             </div>
             <div class="project-divider"></div>
             <div class="project-outcome">
               <span class="project-outcome-icon">🎯</span>
               <span>
-                Diagnosis time went down, the team got better at catching problems before they
-                became serious, and we stopped depending on one or two people who knew how
-                to read the raw data.
+                Brought everyone in single page faster than ever as everyone could access the tool and understand the device they are working with.
               </span>
             </div>
           </div>
@@ -832,12 +806,12 @@
             <p class="project-abstract">
               The same scooter needed to behave differently depending on whether it was being
               used as a rental or as a personally owned vehicle. Managing two separate hardware
-              setups was getting messy. We worked with the Astra IoT device to add mode-switching
-              at the controller level so operators could change the behaviour remotely, over the air.
+              setups was getting messy. We worked controller provider to add mode-switching
+              so operators could change the behaviour remotely, over the air.
             </p>
             <div class="project-chips-row">
-              <div class="vehicle-chip"><span class="vehicle-chip-icon">🛵</span> Pride Scooter</div>
-              <div class="vehicle-chip"><span class="vehicle-chip-icon">📟</span> Astra Device</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">👩🏻‍🦽</span> Pride Scooter</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🕹️</span> Remote control</div>
             </div>
             <div class="project-pillars">
               <span class="project-pill">Business Model Enablement</span>
@@ -885,6 +859,21 @@
             <span class="stack-tag">PostHog</span>
           </div>
         </div>
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon teal">👨‍💻</div>
+            <span class="stack-cat-name">Programming and AI</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Python</span>
+            <span class="stack-tag">LLM</span>
+            <span class="stack-tag">C#</span>
+            <span class="stack-tag">C</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">Node.js</span>          
+          </div>
+        </div>
 
         <div class="stack-category fade-in">
           <div class="stack-category-header">
@@ -895,35 +884,22 @@
             <span class="stack-tag">Google Cloud Platform</span>
             <span class="stack-tag">Bugfender</span>
             <span class="stack-tag">Gleap</span>
+            <span class="stack-tag">Github</span>
+          </div>
+        </div>
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon green">📟</div>
+            <span class="stack-cat-name">Telematics and IoTs</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Teltonika</span>
+            <span class="stack-tag">Queclink</span>
+            <span class="stack-tag">Astra</span>
+            <span class="stack-tag">Omni</span>
           </div>
         </div>
 
-        <div class="stack-category fade-in">
-          <div class="stack-category-header">
-            <div class="stack-cat-icon amber">⚙️</div>
-            <span class="stack-cat-name">Electronics &amp; Embedded</span>
-          </div>
-          <div class="stack-tags">
-            <span class="stack-tag">Parker Controller</span>
-            <span class="stack-tag">ESP32</span>
-            <span class="stack-tag">PID — Distance</span>
-            <span class="stack-tag">PID — Speed</span>
-            <span class="stack-tag">PID — Force</span>
-          </div>
-        </div>
-
-        <div class="stack-category fade-in">
-          <div class="stack-category-header">
-            <div class="stack-cat-icon teal">📡</div>
-            <span class="stack-cat-name">Connectivity Protocols</span>
-          </div>
-          <div class="stack-tags">
-            <span class="stack-tag">TCP/IP</span>
-            <span class="stack-tag">MQTT</span>
-            <span class="stack-tag">Bluetooth Mesh</span>
-            <span class="stack-tag">SIMCOM AT Commands</span>
-          </div>
-        </div>
 
         <div class="stack-category fade-in">
           <div class="stack-category-header">
@@ -941,17 +917,18 @@
 
         <div class="stack-category fade-in">
           <div class="stack-category-header">
-            <div class="stack-cat-icon green">📟</div>
-            <span class="stack-cat-name">IoT Devices</span>
+            <div class="stack-cat-icon amber">⚙️</div>
+            <span class="stack-cat-name">Electronics &amp; Embedded</span>
           </div>
           <div class="stack-tags">
-            <span class="stack-tag">Teltonika</span>
-            <span class="stack-tag">Queclink</span>
-            <span class="stack-tag">Astra</span>
-            <span class="stack-tag">Omni</span>
+            <span class="stack-tag">Parker Controller</span>
+            <span class="stack-tag">ESP32</span>
+            <span class="stack-tag">PID — DSP</span>
+           <span class="stack-tag">SIMCOM</span>
+           <span class="stack-tag">Arduino</span>
+
           </div>
         </div>
-
         <div class="stack-category fade-in">
           <div class="stack-category-header">
             <div class="stack-cat-icon rose">🔌</div>
@@ -962,6 +939,9 @@
             <span class="stack-tag">SOAP API</span>
             <span class="stack-tag">Firmware Logic</span>
             <span class="stack-tag">Expo Go</span>
+            <span class="stack-tag">TCP/IP</span>
+            <span class="stack-tag">MQTT</span>
+            <span class="stack-tag">AMQP</span>
           </div>
         </div>
 
@@ -990,15 +970,13 @@
           <p class="section-label">About Me</p>
           <h2 class="section-title">A bit about me</h2>
           <p>
-            I'm a product manager who works closely with engineers, hardware teams, and
-            operators. I've found that in products where hardware and software are tightly
-            coupled, it really helps to understand both sides — not to do the engineering
-            work, but to ask the right questions and know when something is genuinely hard.
+            I'm a product manager who works closely with leadership, engineers, operators and customers. I've found that, while developing products where hardware and software are tightly
+            coupled, it really helps to understand underlying problem we are trying to solveby asking the right questions and know when something is genuinely needed.
           </p>
           <p>
             Most of my work at Joyride has been in connected vehicles — getting vehicle data
-            flowing reliably, building tools for operators to manage their fleets, and figuring
-            out how to make new hardware work within existing systems.
+            flowing reliably, building digital solutions for operators to manage their fleets, and figuring
+            out how to make new hardware that can work with existing systems.
           </p>
           <p>
             I like working on problems that are still being figured out, where the right
@@ -1007,20 +985,20 @@
         </div>
         <div class="about-stats fade-in">
           <div class="stat-card">
-            <div class="stat-number">4<span>+</span></div>
-            <div class="stat-label">Vehicle platforms &amp; models integrated</div>
+            <div class="stat-number">14<span>+</span></div>
+            <div class="stat-label">Vehicle platforms &amp; systems integrated</div>
           </div>
           <div class="stat-card">
-            <div class="stat-number">2<span>x</span></div>
+            <div class="stat-number">15<span>x</span></div>
             <div class="stat-label">Integration protocols owned (API &amp; TCP)</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">0<span>→</span>1</div>
-            <div class="stat-label">Smart vehicle product built from scratch</div>
+            <div class="stat-label">From Ideation to Product Launch and its Operation</div>
           </div>
           <div class="stat-card">
             <div class="stat-number">⚡</div>
-            <div class="stat-label">Real-time telematics at fleet scale</div>
+            <div class="stat-label">Real-time telematics with AI in horizon</div>
           </div>
         </div>
       </div>
