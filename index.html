@@ -97,14 +97,14 @@
     #hero {
       min-height: 100vh;
       display: flex; align-items: center;
-      background: linear-gradient(135deg, #0f1e3c 0%, #1a3260 55%, #0d2e4a 100%);
+      background: linear-gradient(135deg, #ffffff 0%, #fffbf0 55%, #f0f4ff 100%);
       padding-top: 64px;
       position: relative; overflow: hidden;
     }
     #hero::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(59,130,246,.18) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 70% at 85% 50%, rgba(59,130,246,.08) 0%, transparent 70%);
     }
     .hero-inner {
       position: relative; z-index: 1;
@@ -128,17 +128,17 @@
     .hero-name {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(3rem, 7vw, 5.5rem);
-      color: var(--white); line-height: 1.05;
+      color: var(--navy); line-height: 1.05;
       margin-bottom: .5rem;
     }
     .hero-name em { color: var(--teal); font-style: italic; }
     .hero-role {
       font-size: clamp(1.1rem, 2vw, 1.4rem);
-      color: rgba(255,255,255,.65); font-weight: 300;
+      color: rgba(15,30,60,.55); font-weight: 400;
       margin-bottom: 1.5rem; letter-spacing: .01em;
     }
     .hero-abstract {
-      font-size: 1.05rem; color: rgba(255,255,255,.55);
+      font-size: 1.05rem; color: rgba(15,30,60,.6);
       max-width: 540px; line-height: 1.8; margin-bottom: 2.5rem;
     }
     .hero-cta {
@@ -154,8 +154,8 @@
     .btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
     .btn-outline {
       background: transparent;
-      border: 1.5px solid rgba(255,255,255,.3);
-      color: rgba(255,255,255,.8);
+      border: 1.5px solid rgba(15,30,60,.25);
+      color: rgba(15,30,60,.75);
     }
     .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
 
@@ -164,8 +164,8 @@
     }
     .chip {
       padding: .3rem .85rem; border-radius: 100px;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 500;
+      background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.2);
+      color: rgba(15,30,60,.65); font-size: .8rem; font-weight: 500;
     }
 
     /* ── HERO LAYOUT ── */
@@ -207,8 +207,7 @@
       width: 100%;
       min-width: 360px;
       display: block;
-      filter: invert(1);
-      opacity: .8;
+      opacity: .9;
     }
     @media (max-width: 860px) {
       .hero-layout {
