@@ -171,8 +171,8 @@
     /* ── HERO LAYOUT ── */
     .hero-layout {
       display: grid;
-      grid-template-columns: 1fr 360px;
-      gap: 3.5rem;
+      grid-template-columns: 1fr 500px;
+      gap: 3rem;
       align-items: center;
     }
     .hero-visual {
@@ -199,8 +199,9 @@
     }
     .hero-lifecycle {
       width: 100%;
+      min-width: 360px;
       display: block;
-      opacity: .85;
+      opacity: .9;
     }
     @media (max-width: 860px) {
       .hero-layout {
@@ -518,7 +519,7 @@
         order: -1;
       }
       .hero-profile-wrap { width: 110px; height: 110px; }
-      .hero-lifecycle-wrap { max-width: 280px; }
+      .hero-lifecycle-wrap { max-width: 360px; }
       .hero-chips { gap: .45rem; }
       .chip { font-size: .75rem; }
 
