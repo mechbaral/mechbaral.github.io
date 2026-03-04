@@ -440,8 +440,109 @@
     .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+    /* ── HAMBURGER NAV ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px; cursor: pointer;
+      background: none; border: none; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; width: 100%;
+      background: var(--navy); border-radius: 2px;
+      transition: all .25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 5vw 1.5rem;
+      flex-direction: column; gap: .25rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none; font-size: 1rem; font-weight: 500;
+      color: var(--text); padding: .65rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--teal); }
+
+    /* ── TABLET (≤900px) ── */
+    @media (max-width: 900px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── MOBILE (≤640px) ── */
     @media (max-width: 640px) {
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      section { padding: 56px 1.25rem; }
+
+      /* Hero */
+      #hero { min-height: auto; padding: 80px 1.25rem 56px; }
+      .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+      .hero-name { font-size: clamp(2.4rem, 10vw, 3.2rem); }
+      .hero-role  { font-size: 1rem; }
+      .hero-abstract { font-size: .95rem; max-width: 100%; margin-bottom: 1.75rem; }
+      .hero-visual {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        order: -1;
+      }
+      .hero-profile-wrap { width: 110px; height: 110px; }
+      .hero-lifecycle-wrap { max-width: 280px; }
+      .hero-chips { gap: .45rem; }
+      .chip { font-size: .75rem; }
+
+      /* Sections */
+      .section-title { font-size: 1.75rem; }
+      .section-sub   { font-size: .95rem; margin-bottom: 2rem; }
+
+      /* Expertise */
+      .pillars-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .pillar-card  { padding: 1.25rem; }
+
+      /* Projects */
+      .projects-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+      .project-header { padding: 1.25rem 1.25rem 1rem; }
+      .project-title  { font-size: 1.2rem; }
+      .project-body   { padding: 1.25rem; }
+      .project-abstract { font-size: .88rem; }
+
+      /* Stack */
+      .stack-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .stack-category { padding: 1.1rem; }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; gap: .75rem; }
+      .stat-card   { padding: 1.1rem; }
+      .stat-number { font-size: 1.8rem; }
+
+      /* Contact */
+      .contact-links { flex-direction: column; }
+      .contact-link  { justify-content: center; }
+    }
+
+    /* ── VERY SMALL (≤380px) ── */
+    @media (max-width: 380px) {
+      .stack-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr; }
+      .hero-name { font-size: 2.2rem; }
     }
   </style>
 </head>
@@ -457,7 +558,19 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#expertise" class="mobile-link">Expertise</a>
+    <a href="#projects"  class="mobile-link">Projects</a>
+    <a href="#stack"     class="mobile-link">Stack</a>
+    <a href="#about"     class="mobile-link">About</a>
+    <a href="#contact"   class="mobile-link">Contact</a>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -922,11 +1035,28 @@
   </footer>
 
   <script>
+    // Nav shadow on scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
 
+    // Hamburger menu toggle
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+    });
+    // Close menu when a link is tapped
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+      });
+    });
+
+    // Fade-in on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -934,7 +1064,7 @@
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
