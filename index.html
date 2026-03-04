@@ -1,10 +1,876 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Abinash Baral | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abinash Baral | Product Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0f1e3c;
+      --navy-2: #1a3260;
+      --teal:   #0ea5a0;
+      --teal-lt:#e0f7f6;
+      --amber:  #f59e0b;
+      --slate:  #64748b;
+      --smoke:  #f8fafc;
+      --white:  #ffffff;
+      --border: #e2e8f0;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --radius: 12px;
+      --shadow: 0 4px 24px rgba(15,30,60,.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow .3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 16px rgba(15,30,60,.1); }
+
+    .nav-logo {
+      font-weight: 700; font-size: 1.1rem; color: var(--navy);
+      text-decoration: none; letter-spacing: -.02em;
+    }
+    .nav-logo span { color: var(--teal); }
+
+    .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: .9rem; font-weight: 500;
+      color: var(--slate); transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 5vw; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .75rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--teal); margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: var(--navy); line-height: 1.2; margin-bottom: 1rem;
+    }
+    .section-sub {
+      font-size: 1.05rem; color: var(--muted); max-width: 600px;
+      line-height: 1.75; margin-bottom: 3rem;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 55%, #0d2e4a 100%);
+      padding-top: 64px;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 80% 50%, rgba(14,165,160,.18) 0%, transparent 70%);
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(14,165,160,.15); border: 1px solid rgba(14,165,160,.35);
+      color: var(--teal); border-radius: 100px;
+      padding: .35rem 1rem; font-size: .82rem; font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.8); }
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: var(--white); line-height: 1.05;
+      margin-bottom: .5rem;
+    }
+    .hero-name em { color: var(--teal); font-style: italic; }
+    .hero-role {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      color: rgba(255,255,255,.65); font-weight: 300;
+      margin-bottom: 1.5rem; letter-spacing: .01em;
+    }
+    .hero-abstract {
+      font-size: 1.05rem; color: rgba(255,255,255,.55);
+      max-width: 540px; line-height: 1.8; margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem; border-radius: 8px;
+      font-size: .9rem; font-weight: 600; text-decoration: none;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--teal); color: var(--white); }
+    .btn-primary:hover { background: #0b8f8a; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,.3);
+      color: rgba(255,255,255,.8);
+    }
+    .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+    .hero-chips {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem;
+    }
+    .chip {
+      padding: .3rem .85rem; border-radius: 100px;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.6); font-size: .8rem; font-weight: 500;
+    }
+
+    /* ── EXPERTISE ── */
+    #expertise { background: var(--smoke); }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .pillar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .pillar-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+    .pillar-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; margin-bottom: 1rem;
+    }
+    .pillar-icon.teal  { background: var(--teal-lt); }
+    .pillar-icon.amber { background: #fef3c7; }
+    .pillar-icon.navy  { background: #e8edf5; }
+    .pillar-icon.rose  { background: #ffe4e6; }
+    .pillar-icon.violet{ background: #ede9fe; }
+
+    .pillar-name {
+      font-size: 1rem; font-weight: 700; color: var(--navy);
+      margin-bottom: .4rem;
+    }
+    .pillar-desc {
+      font-size: .88rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--white); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 2rem;
+    }
+    @media (max-width: 580px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 40px rgba(15,30,60,.12);
+      transform: translateY(-4px);
+    }
+
+    .project-header {
+      padding: 1.75rem 2rem 1.5rem;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+      position: relative;
+    }
+    .project-header.alt {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+    .project-header.green {
+      background: linear-gradient(135deg, #0a2a1e 0%, #0d3b2a 100%);
+    }
+    .project-header.indigo {
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+    }
+
+    .project-tag {
+      display: inline-block;
+      background: rgba(14,165,160,.2); border: 1px solid rgba(14,165,160,.4);
+      color: var(--teal); border-radius: 100px;
+      padding: .25rem .75rem; font-size: .72rem; font-weight: 600;
+      margin-bottom: .85rem; letter-spacing: .04em; text-transform: uppercase;
+    }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; color: var(--white); line-height: 1.25;
+      margin-bottom: .35rem;
+    }
+    .project-company {
+      font-size: .82rem; color: rgba(255,255,255,.45); font-weight: 400;
+    }
+
+    .project-body { padding: 1.5rem 2rem 1.75rem; }
+
+    .project-abstract {
+      font-size: .93rem; color: var(--muted); line-height: 1.8;
+      margin-bottom: 1.25rem;
+      border-left: 3px solid var(--teal);
+      padding-left: 1rem;
+      font-style: italic;
+    }
+
+    .project-chips-row {
+      display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 1.25rem;
+    }
+    .vehicle-chip {
+      display: flex; align-items: center; gap: .45rem;
+      background: var(--smoke); border: 1px solid var(--border);
+      border-radius: 8px; padding: .4rem .9rem;
+      font-size: .82rem; font-weight: 500; color: var(--navy);
+    }
+    .vehicle-chip-icon { font-size: .95rem; }
+
+    .project-pillars {
+      display: flex; flex-wrap: wrap; gap: .45rem;
+    }
+    .project-pill {
+      padding: .25rem .7rem; border-radius: 100px;
+      background: var(--teal-lt); color: #0a7b77;
+      font-size: .76rem; font-weight: 600;
+    }
+
+    .project-divider {
+      height: 1px; background: var(--border); margin: 1.1rem 0;
+    }
+
+    .project-outcome {
+      display: flex; align-items: flex-start; gap: .7rem;
+      font-size: .86rem; color: var(--muted); line-height: 1.65;
+    }
+    .project-outcome-icon { font-size: .95rem; flex-shrink: 0; margin-top: .1rem; }
+
+    /* ── TECH STACK ── */
+    #stack { background: var(--smoke); }
+
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .stack-category {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .stack-category-header {
+      display: flex; align-items: center; gap: .6rem;
+      margin-bottom: 1rem;
+    }
+    .stack-cat-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .stack-cat-icon.teal   { background: var(--teal-lt); }
+    .stack-cat-icon.amber  { background: #fef3c7; }
+    .stack-cat-icon.navy   { background: #e8edf5; }
+    .stack-cat-icon.rose   { background: #ffe4e6; }
+    .stack-cat-icon.violet { background: #ede9fe; }
+    .stack-cat-icon.green  { background: #dcfce7; }
+    .stack-cat-icon.orange { background: #ffedd5; }
+
+    .stack-cat-name {
+      font-size: .88rem; font-weight: 700; color: var(--navy);
+    }
+    .stack-tags {
+      display: flex; flex-wrap: wrap; gap: .4rem;
+    }
+    .stack-tag {
+      padding: .25rem .65rem; border-radius: 6px;
+      background: var(--smoke); border: 1px solid var(--border);
+      font-size: .78rem; font-weight: 500; color: var(--slate);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    .about-text p {
+      font-size: 1rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.2rem;
+    }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+    }
+    .stat-card {
+      background: var(--smoke); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem; color: var(--navy); line-height: 1;
+      margin-bottom: .25rem;
+    }
+    .stat-number span { color: var(--teal); }
+    .stat-label { font-size: .82rem; color: var(--muted); font-weight: 500; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy); }
+    #contact .section-label { color: var(--teal); }
+    #contact .section-title { color: var(--white); }
+    #contact .section-sub { color: rgba(255,255,255,.5); }
+
+    .contact-links {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: .6rem;
+      padding: .85rem 1.5rem; border-radius: 8px;
+      text-decoration: none; font-size: .9rem; font-weight: 500;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.8);
+      transition: all .2s;
+    }
+    .contact-link:hover {
+      background: rgba(14,165,160,.15);
+      border-color: var(--teal); color: var(--teal);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem 5vw;
+      background: #080f1e;
+      color: rgba(255,255,255,.25); font-size: .82rem;
+    }
+
+    /* ── FADE IN ── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Hello, I'm Abinash 👋</h1>
-  <p>Welcome to my portfolio website.</p>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">AB<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Available for new opportunities
+      </div>
+      <h1 class="hero-name">Abinash<br><em>Baral</em></h1>
+      <p class="hero-role">Product Manager · Mobility &amp; Connected Vehicles</p>
+      <p class="hero-abstract">
+        I work on connected vehicles and mobility products. What I bring to the table is
+        that I can actually read the CAN bus data, understand why firmware behaves a certain
+        way, and use that context to make better product calls — rather than just
+        coordinating between people who do.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">Product Strategy</span>
+        <span class="chip">Telematics</span>
+        <span class="chip">IoT &amp; Connected Vehicles</span>
+        <span class="chip">CAN Protocols</span>
+        <span class="chip">API &amp; Platform Integrations</span>
+        <span class="chip">Fleet Management</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section id="expertise">
+    <div class="container">
+      <p class="section-label fade-in">Core Expertise</p>
+      <h2 class="section-title fade-in">How I work</h2>
+      <p class="section-sub fade-in">
+        Before I write a spec or plan a sprint, I ask: are we solving the right problem?
+        These are the things I try to get right on every project.
+      </p>
+      <div class="pillars-grid">
+
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon teal">🔍</div>
+          <div class="pillar-name">Customer Insight</div>
+          <p class="pillar-desc">
+            I talk to operators and riders regularly — not just at the start of a project,
+            but throughout. The best calls I've made came from a conversation, not a dashboard.
+          </p>
+        </div>
+
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon amber">⚡</div>
+          <div class="pillar-name">Differentiation &amp; Competitive Thinking</div>
+          <p class="pillar-desc">
+            I keep an eye on what competitors are doing, but I'm more interested in what
+            they're not doing. That gap is usually where the real opportunity sits.
+          </p>
+        </div>
+
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon navy">🎯</div>
+          <div class="pillar-name">End-to-End Ownership</div>
+          <p class="pillar-desc">
+            I stay involved from the first conversation about a problem through to
+            seeing whether it actually worked. Handing off once something ships
+            doesn't feel like ownership to me.
+          </p>
+        </div>
+
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon rose">📊</div>
+          <div class="pillar-name">Data &amp; Metrics Ownership</div>
+          <p class="pillar-desc">
+            I try to agree on what success looks like before anything gets built.
+            It saves arguments later and keeps everyone honest — including me.
+            I'm comfortable writing SQL and building dashboards to get to the answer myself.
+          </p>
+        </div>
+
+        <div class="pillar-card fade-in">
+          <div class="pillar-icon violet">🤝</div>
+          <div class="pillar-name">Aligning Stakeholders</div>
+          <p class="pillar-desc">
+            Getting engineering, hardware, ops, and leadership on the same page is genuinely
+            hard. I spend a lot of time writing things down clearly and making trade-offs
+            explicit so the same decision doesn't get relitigated three times.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <p class="section-label fade-in">Selected Work</p>
+      <h2 class="section-title fade-in">Things I've worked on</h2>
+      <p class="section-sub fade-in">
+        Each of these started with a real problem someone was running into.
+        The technology came second.
+      </p>
+      <div class="projects-grid">
+
+        <!-- PROJECT 1 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <span class="project-tag">Smart Vehicle Platform</span>
+            <h3 class="project-title">Making Vehicles Intelligent at Joyride</h3>
+            <p class="project-company">Joyride · Connected Mobility</p>
+          </div>
+          <div class="project-body">
+            <p class="project-abstract">
+              Before this, operators had no visibility into what vehicles were doing until
+              something went wrong. We connected GEM Cars and Yamaha vehicles to the cloud
+              so the team could actually see what was happening — and act on it — in real time.
+            </p>
+            <div class="project-chips-row">
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🚗</span> GEM Car</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🛺</span> Yamaha Car</div>
+            </div>
+            <div class="project-pillars">
+              <span class="project-pill">Platform Strategy</span>
+              <span class="project-pill">Hardware Integration</span>
+              <span class="project-pill">Fleet Intelligence</span>
+              <span class="project-pill">Vendor Coordination</span>
+            </div>
+            <div class="project-divider"></div>
+            <div class="project-outcome">
+              <span class="project-outcome-icon">🎯</span>
+              <span>
+                Operators could check vehicle status remotely, diagnose issues faster, and
+                start making decisions based on actual usage data instead of guesswork.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 2 -->
+        <div class="project-card fade-in">
+          <div class="project-header alt">
+            <span class="project-tag">Telematics Integration</span>
+            <h3 class="project-title">Fleet Telematics Data Pipeline at Joyride</h3>
+            <p class="project-company">Joyride · Platform Engineering</p>
+          </div>
+          <div class="project-body">
+            <p class="project-abstract">
+              Different vehicle partners sent data in completely different formats — some
+              through REST APIs, some over raw TCP connections. That made it really hard to
+              build anything reliable on top. We built one shared data layer so the rest of
+              the platform didn't have to care about those differences.
+            </p>
+            <div class="project-chips-row">
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🔗</span> REST API</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📶</span> Direct TCP</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📡</span> MQTT</div>
+            </div>
+            <div class="project-pillars">
+              <span class="project-pill">Data Platform Strategy</span>
+              <span class="project-pill">Protocol Abstraction</span>
+              <span class="project-pill">Operator Intelligence</span>
+              <span class="project-pill">Fleet Analytics</span>
+            </div>
+            <div class="project-divider"></div>
+            <div class="project-outcome">
+              <span class="project-outcome-icon">🎯</span>
+              <span>
+                Adding a new vehicle type became much faster, and GPS tracking, diagnostics,
+                and usage analytics became available across the whole fleet through one
+                consistent interface.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 3 -->
+        <div class="project-card fade-in">
+          <div class="project-header green">
+            <span class="project-tag">Diagnostic Tooling</span>
+            <h3 class="project-title">Gopal Desk — Vehicle Diagnostic Platform</h3>
+            <p class="project-company">Internal Tool · Fleet Operations</p>
+          </div>
+          <div class="project-body">
+            <p class="project-abstract">
+              As the fleet grew, figuring out what was wrong with a vehicle was taking too
+              long. The support and ops team were piecing things together from raw logs and
+              instinct. Gopal Desk was built to give anyone on the team the tools to properly
+              understand a vehicle — what it's doing, what it was doing, and why it failed.
+            </p>
+            <div class="project-chips-row">
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🔧</span> Vehicle Debugging</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📋</span> Full Diagnostics</div>
+            </div>
+            <div class="project-pillars">
+              <span class="project-pill">Internal Platform Strategy</span>
+              <span class="project-pill">Operational Leverage</span>
+              <span class="project-pill">CAN Data</span>
+              <span class="project-pill">Support Tooling</span>
+            </div>
+            <div class="project-divider"></div>
+            <div class="project-outcome">
+              <span class="project-outcome-icon">🎯</span>
+              <span>
+                Diagnosis time went down, the team got better at catching problems before they
+                became serious, and we stopped depending on one or two people who knew how
+                to read the raw data.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECT 4 -->
+        <div class="project-card fade-in">
+          <div class="project-header indigo">
+            <span class="project-tag">Motor Controller</span>
+            <h3 class="project-title">Pride Scooter Controller — Rental Mode</h3>
+            <p class="project-company">Joyride · Hardware &amp; Firmware</p>
+          </div>
+          <div class="project-body">
+            <p class="project-abstract">
+              The same scooter needed to behave differently depending on whether it was being
+              used as a rental or as a personally owned vehicle. Managing two separate hardware
+              setups was getting messy. We worked with the Astra IoT device to add mode-switching
+              at the controller level so operators could change the behaviour remotely, over the air.
+            </p>
+            <div class="project-chips-row">
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">🛵</span> Pride Scooter</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📟</span> Astra Device</div>
+            </div>
+            <div class="project-pillars">
+              <span class="project-pill">Business Model Enablement</span>
+              <span class="project-pill">Fleet Flexibility</span>
+              <span class="project-pill">Firmware Strategy</span>
+              <span class="project-pill">SKU Reduction</span>
+            </div>
+            <div class="project-divider"></div>
+            <div class="project-outcome">
+              <span class="project-outcome-icon">🎯</span>
+              <span>
+                One hardware configuration now covers both rental and personal use — which
+                simplified procurement and made fleet management noticeably less complicated.
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section id="stack">
+    <div class="container">
+      <p class="section-label fade-in">Tools &amp; Technologies</p>
+      <h2 class="section-title fade-in">Tools I work with</h2>
+      <p class="section-sub fade-in">
+        Being able to read a CAN frame or understand what a firmware change actually does
+        means I can have better conversations with engineers, catch problems earlier, and
+        write specs that don't leave out the parts that matter.
+      </p>
+      <div class="stack-grid">
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon teal">🗄️</div>
+            <span class="stack-cat-name">Data &amp; Analytics</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">SQL</span>
+            <span class="stack-tag">Metabase</span>
+            <span class="stack-tag">Navicat</span>
+            <span class="stack-tag">Mixpanel</span>
+            <span class="stack-tag">PostHog</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon navy">☁️</div>
+            <span class="stack-cat-name">Cloud &amp; Monitoring</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Google Cloud Platform</span>
+            <span class="stack-tag">Bugfender</span>
+            <span class="stack-tag">Gleap</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon amber">⚙️</div>
+            <span class="stack-cat-name">Electronics &amp; Embedded</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Parker Controller</span>
+            <span class="stack-tag">ESP32</span>
+            <span class="stack-tag">PID — Distance</span>
+            <span class="stack-tag">PID — Speed</span>
+            <span class="stack-tag">PID — Force</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon teal">📡</div>
+            <span class="stack-cat-name">Connectivity Protocols</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">TCP/IP</span>
+            <span class="stack-tag">MQTT</span>
+            <span class="stack-tag">Bluetooth Mesh</span>
+            <span class="stack-tag">SIMCOM AT Commands</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon orange">🚌</div>
+            <span class="stack-cat-name">CAN &amp; Vehicle Bus</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">CAN Shield</span>
+            <span class="stack-tag">Arduino</span>
+            <span class="stack-tag">CANCrocodile</span>
+            <span class="stack-tag">SAE J1939</span>
+            <span class="stack-tag">Kvaser Leaf</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon green">📟</div>
+            <span class="stack-cat-name">IoT Devices</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Teltonika</span>
+            <span class="stack-tag">Queclink</span>
+            <span class="stack-tag">Astra</span>
+            <span class="stack-tag">Omni</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon rose">🔌</div>
+            <span class="stack-cat-name">APIs &amp; Integration</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">REST API</span>
+            <span class="stack-tag">SOAP API</span>
+            <span class="stack-tag">Firmware Logic</span>
+            <span class="stack-tag">Expo Go</span>
+          </div>
+        </div>
+
+        <div class="stack-category fade-in">
+          <div class="stack-category-header">
+            <div class="stack-cat-icon violet">🎨</div>
+            <span class="stack-cat-name">Design &amp; Planning</span>
+          </div>
+          <div class="stack-tags">
+            <span class="stack-tag">Figma</span>
+            <span class="stack-tag">Miro</span>
+            <span class="stack-tag">Jira</span>
+            <span class="stack-tag">Confluence</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p class="section-label">About Me</p>
+          <h2 class="section-title">A bit about me</h2>
+          <p>
+            I'm a product manager who works closely with engineers, hardware teams, and
+            operators. I've found that in products where hardware and software are tightly
+            coupled, it really helps to understand both sides — not to do the engineering
+            work, but to ask the right questions and know when something is genuinely hard.
+          </p>
+          <p>
+            Most of my work at Joyride has been in connected vehicles — getting vehicle data
+            flowing reliably, building tools for operators to manage their fleets, and figuring
+            out how to make new hardware work within existing systems.
+          </p>
+          <p>
+            I like working on problems that are still being figured out, where the right
+            answer isn't obvious and where the decisions you make early actually matter later.
+          </p>
+        </div>
+        <div class="about-stats fade-in">
+          <div class="stat-card">
+            <div class="stat-number">4<span>+</span></div>
+            <div class="stat-label">Vehicle platforms &amp; models integrated</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2<span>x</span></div>
+            <div class="stat-label">Integration protocols owned (API &amp; TCP)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">0<span>→</span>1</div>
+            <div class="stat-label">Smart vehicle product built from scratch</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">⚡</div>
+            <div class="stat-label">Real-time telematics at fleet scale</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label fade-in">Let's connect</p>
+      <h2 class="section-title fade-in">Get in touch</h2>
+      <p class="section-sub fade-in">
+        If you're working on something in mobility, connected hardware, or fleet software
+        and want to have a conversation, I'd love to hear from you.
+      </p>
+      <div class="contact-links fade-in">
+        <a href="mailto:mechbaral@gmail.com" class="contact-link">
+          <span>✉️</span> mechbaral@gmail.com
+        </a>
+        <a href="https://github.com/mechbaral" target="_blank" class="contact-link">
+          <span>🐙</span> github.com/mechbaral
+        </a>
+        <a href="https://www.linkedin.com/in/abinash-baral-telematics/" target="_blank" class="contact-link">
+          <span>💼</span> LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Abinash Baral · Built with care</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
