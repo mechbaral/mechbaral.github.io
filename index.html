@@ -559,6 +559,28 @@
       .contact-link  { justify-content: center; }
     }
 
+    /* ── BOOKING (CAL.COM IFRAME) ── */
+    #booking { background: var(--white); }
+    #booking .booking-iframe-wrap {
+      margin-top: 1.5rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--white);
+      min-height: 700px;
+    }
+    #booking .booking-iframe {
+      display: block;
+      width: 100%;
+      min-height: 700px;
+      height: 700px;
+      border: none;
+    }
+    @media (max-width: 640px) {
+      #booking .booking-iframe-wrap { min-height: 600px; }
+      #booking .booking-iframe { min-height: 600px; height: 600px; }
+    }
+
     /* ── VERY SMALL (≤380px) ── */
     @media (max-width: 380px) {
       .stack-grid { grid-template-columns: 1fr; }
@@ -580,6 +602,7 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#stack">Stack</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#booking">Book</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
@@ -593,6 +616,7 @@
     <a href="#projects"  class="mobile-link">Projects</a>
     <a href="#stack"     class="mobile-link">Stack</a>
     <a href="#about"     class="mobile-link">About</a>
+    <a href="#booking"   class="mobile-link">Book</a>
     <a href="#contact"   class="mobile-link">Contact</a>
   </div>
 
@@ -616,8 +640,8 @@
             coordinating between people who do.
           </p>
       <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="https://cal.com/abinash-baral" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Book 30 min</a>
+        <a href="#booking" class="btn btn-primary">Book 30 min</a>
+        <a href="#projects" class="btn btn-outline">View Projects</a>
         <a href="#contact" class="btn btn-outline">Get in Touch</a>
       </div>
           <div class="hero-chips">
@@ -1002,6 +1026,26 @@
             <div class="stat-label">Real-time telematics with AI in horizon</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING (CAL.COM IFRAME) -->
+  <section id="booking">
+    <div class="container">
+      <p class="section-label fade-in">Schedule a call</p>
+      <h2 class="section-title fade-in">Book 30 min with me</h2>
+      <p class="section-sub fade-in">
+        Pick a time that works for you — the calendar opens below. No redirect, you stay on this page.
+      </p>
+      <div class="booking-iframe-wrap fade-in">
+        <iframe
+          class="booking-iframe"
+          src="https://cal.com/abinash-baral"
+          title="Book a meeting with Abinash Baral"
+          allow="camera; microphone; fullscreen"
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
   </section>
