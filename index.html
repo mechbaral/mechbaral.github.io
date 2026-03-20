@@ -11,6 +11,18 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     :root {
       --navy:   #0f1e3c;
       --navy-2: #1a3260;
@@ -353,6 +365,13 @@
       font-size: .86rem; color: var(--muted); line-height: 1.65;
     }
     .project-outcome-icon { font-size: .95rem; flex-shrink: 0; margin-top: .1rem; }
+    a.project-outcome-link {
+      color: var(--teal);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    a.project-outcome-link:hover { color: #162d6e; }
 
     /* ── TECH STACK ── */
     #stack { background: var(--smoke); }
@@ -581,6 +600,321 @@
       #booking .booking-iframe { min-height: 600px; height: 600px; }
     }
 
+    /* ── ASK CHAT (FIXED WIDGET) ── */
+    .ask-chat-root {
+      position: fixed;
+      bottom: 1.25rem;
+      right: 1.25rem;
+      z-index: 120;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .65rem;
+    }
+    .ask-chat-fab {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      background: var(--teal);
+      color: var(--white);
+      cursor: pointer;
+      box-shadow: 0 4px 22px rgba(15, 30, 60, .22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .2s, background .2s, box-shadow .2s;
+    }
+    .ask-chat-fab:hover {
+      background: #162d6e;
+      transform: scale(1.06);
+      box-shadow: 0 6px 28px rgba(15, 30, 60, .28);
+    }
+    .ask-chat-fab:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 3px;
+    }
+    .ask-chat-fab .fab-icon-close { display: none; line-height: 1; font-size: 1.5rem; font-weight: 300; }
+    .ask-chat-root.is-open .ask-chat-fab .fab-icon-chat { display: none; }
+    .ask-chat-root.is-open .ask-chat-fab .fab-icon-close { display: block; }
+
+    .ask-chat-window {
+      width: min(100vw - 2rem, 400px);
+      max-height: min(580px, calc(100vh - 6.5rem));
+      background: var(--white);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: 0 12px 48px rgba(15, 30, 60, .2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: askChatIn .24s ease;
+    }
+    @keyframes askChatIn {
+      from { opacity: 0; transform: translateY(10px) scale(.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .ask-chat-window[hidden] {
+      display: none !important;
+    }
+    .ask-chat-header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      padding: .85rem 1rem;
+      background: linear-gradient(135deg, #0f1e3c 0%, #1a3260 100%);
+      color: var(--white);
+    }
+    .ask-chat-header h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.25;
+    }
+    .ask-chat-header-sub {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .65;
+      margin: .15rem 0 0;
+    }
+    .ask-chat-close {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .1);
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.35rem;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s;
+    }
+    .ask-chat-close:hover { background: rgba(255, 255, 255, .18); }
+
+    .ask-chat-body {
+      padding: 1rem 1.15rem 1.2rem;
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+    .ask-chat-hint {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: .65rem;
+    }
+
+    .ask-how-details {
+      margin-bottom: 1rem;
+    }
+    .ask-how-details .ask-how-list {
+      margin: 0;
+      padding: .75rem 1rem 1rem;
+      padding-left: 1.25rem;
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .ask-how-details .ask-how-list li { margin-bottom: .55rem; }
+    .ask-how-details .ask-how-list li:last-child { margin-bottom: 0; }
+    .ask-how-details .ask-how-list strong {
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .ask-how-details .ask-how-tech {
+      font-size: .72rem;
+      color: var(--slate);
+      padding: 0 1rem .85rem;
+      line-height: 1.55;
+      border-top: 1px solid var(--border);
+      margin: 0;
+      padding-top: .65rem;
+    }
+    .ask-how-details .ask-how-tech a {
+      color: var(--teal);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .ask-how-details code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .88em;
+      background: var(--smoke);
+      padding: .08rem .32rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--navy);
+    }
+
+    .ask-panel {
+      padding: 0;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+    }
+    .ask-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .ask-input {
+      width: 100%;
+      min-height: 72px;
+      padding: .85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: .95rem;
+      line-height: 1.6;
+      color: var(--text);
+      resize: vertical;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .ask-input:focus {
+      outline: none;
+      border-color: rgba(30, 58, 138, .45);
+      box-shadow: 0 0 0 3px rgba(30, 58, 138, .12);
+    }
+    .ask-input::placeholder { color: var(--slate); opacity: .75; }
+    .ask-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: .65rem;
+    }
+    .ask-actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: .65rem .85rem;
+    }
+    .ask-actions-row .ask-submit { flex-shrink: 0; }
+    .ask-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .7rem 1.5rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--teal);
+      color: var(--white);
+      font-size: .9rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .ask-submit:hover { background: #162d6e; transform: translateY(-1px); }
+    .ask-submit:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .ask-status {
+      font-size: .75rem;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: .01em;
+      line-height: 1.5;
+      flex: 1;
+      min-width: 0;
+    }
+    .ask-status.is-fallback { color: #b45309; }
+    .ask-status.is-ready { color: #15803d; }
+    .ask-status.is-loading { color: var(--navy); }
+
+    .ask-spinner {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: askSpin 0.65s linear infinite;
+    }
+    .ask-spinner[hidden] { display: none !important; }
+    @keyframes askSpin {
+      to { transform: rotate(360deg); }
+    }
+    .ask-answer {
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+      margin-top: .25rem;
+    }
+    .ask-answer-title {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: .65rem;
+    }
+    .ask-answer-body {
+      font-size: .9rem;
+      color: var(--text);
+      line-height: 1.7;
+      white-space: pre-wrap;
+    }
+    .ask-source-details {
+      margin-top: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--smoke);
+      overflow: hidden;
+    }
+    .ask-source-details summary {
+      cursor: pointer;
+      padding: .65rem 1rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--navy);
+      list-style: none;
+    }
+    .ask-source-details summary::-webkit-details-marker { display: none; }
+    .ask-source-details[open] summary { border-bottom: 1px solid var(--border); }
+    .ask-source-bullets {
+      padding: .85rem 1rem 1rem;
+      margin: 0;
+      padding-left: 1.35rem;
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    @media (max-width: 520px) {
+      .ask-chat-root {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        align-items: stretch;
+        padding: 0;
+      }
+      .ask-chat-window {
+        width: 100%;
+        max-height: min(88vh, 640px);
+        border-radius: var(--radius) var(--radius) 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+      }
+      .ask-chat-fab {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        left: auto;
+      }
+    }
+
     /* ── VERY SMALL (≤380px) ── */
     @media (max-width: 380px) {
       .stack-grid { grid-template-columns: 1fr; }
@@ -602,6 +936,7 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#stack">Stack</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#ask">Ask</a></li>
       <li><a href="#booking">Book</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -616,6 +951,7 @@
     <a href="#projects"  class="mobile-link">Projects</a>
     <a href="#stack"     class="mobile-link">Stack</a>
     <a href="#about"     class="mobile-link">About</a>
+    <a href="#ask"       class="mobile-link">Ask</a>
     <a href="#booking"   class="mobile-link">Book</a>
     <a href="#contact"   class="mobile-link">Contact</a>
   </div>
@@ -855,6 +1191,40 @@
           </div>
         </div>
 
+        <!-- PROJECT 5 -->
+        <div class="project-card fade-in">
+          <div class="project-header">
+            <span class="project-tag">Documentation &amp; Guided Support</span>
+            <h3 class="project-title">Joyride Neon IoT — Conversational Installation Guide</h3>
+            <p class="project-company">Joyride · Installer &amp; Customer Experience</p>
+          </div>
+          <div class="project-body">
+            <p class="project-abstract">
+              The Neon IoT install manual was accurate for our hardware, but it assumed people were already comfortable with wiring checks and basic tools. In practice, hobbyists and enthusiasts often had simple questions we did not want to answer only with “hire a technician,” which added cost and friction. We turned the installation flow into a conversational guide so people could ask what to do next, step by step, and we linked out to supporting articles — things like how to use a multimeter — when the Joyride doc was not the right place to teach fundamentals.
+            </p>
+            <div class="project-chips-row">
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">💬</span> Conversational manual</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📡</span> Neon IoT install</div>
+              <div class="vehicle-chip"><span class="vehicle-chip-icon">📎</span> Linked how-to articles</div>
+            </div>
+            <div class="project-pillars">
+              <span class="project-pill">Self-Serve Enablement</span>
+              <span class="project-pill">Content &amp; Support Strategy</span>
+              <span class="project-pill">Guided Install UX</span>
+              <span class="project-pill">LLM-Style Assistance</span>
+            </div>
+            <div class="project-divider"></div>
+            <div class="project-outcome">
+              <span class="project-outcome-icon">🎯</span>
+              <span>
+                Installers could stay in one flow for Neon-specific steps while still getting honest help on basics, without every question becoming a paid truck roll. The live product is not something I can demo here — but the
+                <a href="#ask" class="project-outcome-link">quick-answers chat on this site</a>
+                is built in a similar spirit so you can get a feel for conversational, step-oriented help.
+              </span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1084,6 +1454,89 @@
     <p>© 2026 Abinash Baral · Built with care</p>
   </footer>
 
+  <!-- ASK: floating chat (same KB + optional wording model as before) -->
+  <div id="ask" class="ask-chat-root">
+    <div id="askChatWindow" class="ask-chat-window" role="dialog" aria-labelledby="askChatHeading" aria-hidden="true" hidden>
+      <div class="ask-chat-header">
+        <div>
+          <p class="ask-chat-header-sub">Quick answers</p>
+          <h3 id="askChatHeading">Ask about my work</h3>
+        </div>
+        <button type="button" class="ask-chat-close" id="askChatClose" aria-label="Close chat">×</button>
+      </div>
+      <div class="ask-chat-body">
+        <p class="ask-chat-hint">
+          Answers are built from this site. An optional on-device model may smooth wording; it does not add new facts.
+        </p>
+        <details class="ask-source-details ask-how-details">
+          <summary>How this chat works</summary>
+          <ul class="ask-how-list">
+            <li>
+              <strong>What answers you:</strong> Your question is matched to short topics I wrote for this portfolio (keywords and fixed facts). Everything is decided in your browser — nothing is sent to my server.
+            </li>
+            <li>
+              <strong>Optional wording pass:</strong> After that, I optionally load
+              <a href="https://huggingface.co/docs/transformers.js" target="_blank" rel="noopener noreferrer">Transformers.js</a>
+              and run a small on-device model (<code>Xenova/flan-t5-small</code>) to turn the same facts into smoother prose. It is not allowed to add new information; if the output strays, it is discarded.
+            </li>
+            <li>
+              <strong>If the model does not load:</strong> You still get the curated facts. The status line will say &ldquo;Using smart local fallback.&rdquo;
+            </li>
+            <li>
+              <strong>Not the Joyride Neon product:</strong> This widget is a lightweight demo of the same <em>idea</em> as the conversational Neon install guide — not that production experience.
+            </li>
+          </ul>
+          <p class="ask-how-tech">
+            Stack: plain HTML/CSS/JS on GitHub Pages · dynamic import from <code>esm.sh</code> · browser cache for model weights after the first successful load.
+          </p>
+        </details>
+        <div class="ask-panel">
+          <form class="ask-form" id="askForm" action="#" method="get">
+            <label for="askInput" class="visually-hidden">Your question</label>
+            <textarea
+              id="askInput"
+              class="ask-input"
+              name="q"
+              rows="2"
+              maxlength="500"
+              placeholder="e.g. Telematics at Joyride, Gopal Desk, booking…"
+              autocomplete="off"
+            ></textarea>
+            <div class="ask-actions">
+              <div class="ask-actions-row">
+                <button type="submit" class="ask-submit" id="askSubmit">Get answer</button>
+                <span class="ask-spinner" id="askSpinner" hidden aria-hidden="true"></span>
+                <p class="ask-status" id="askStatus" role="status" aria-live="polite">
+                  Knowledge is sourced from this portfolio. Optional on-device wording polish loads when you submit a question.
+                </p>
+              </div>
+            </div>
+          </form>
+          <div class="ask-answer" id="askAnswerWrap" hidden>
+            <p class="ask-answer-title" id="askAnswerTitle">Answer</p>
+            <div class="ask-answer-body" id="askAnswerBody"></div>
+            <details class="ask-source-details" id="askSourceDetails" hidden>
+              <summary>Source facts (verbatim from this site)</summary>
+              <ul class="ask-source-bullets" id="askSourceBullets"></ul>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      id="askChatFab"
+      class="ask-chat-fab"
+      aria-expanded="false"
+      aria-controls="askChatWindow"
+      title="Ask about my work"
+      aria-label="Open quick answers chat"
+    >
+      <span class="fab-icon-chat" aria-hidden="true">💬</span>
+      <span class="fab-icon-close" aria-hidden="true">×</span>
+    </button>
+  </div>
+
   <script>
     // Nav shadow on scroll
     const navbar = document.getElementById('navbar');
@@ -1117,6 +1570,451 @@
     }, { threshold: 0.08 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Ask chat widget: FAB + nav #ask links
+    (function initAskChatShell() {
+      const root = document.getElementById('ask');
+      const panel = document.getElementById('askChatWindow');
+      const fab = document.getElementById('askChatFab');
+      const closeBtn = document.getElementById('askChatClose');
+      const askInput = document.getElementById('askInput');
+      if (!root || !panel || !fab) return;
+
+      function openAsk() {
+        panel.hidden = false;
+        panel.setAttribute('aria-modal', 'true');
+        panel.removeAttribute('aria-hidden');
+        root.classList.add('is-open');
+        fab.setAttribute('aria-expanded', 'true');
+        requestAnimationFrame(() => askInput?.focus());
+      }
+
+      function closeAsk() {
+        panel.hidden = true;
+        panel.removeAttribute('aria-modal');
+        panel.setAttribute('aria-hidden', 'true');
+        root.classList.remove('is-open');
+        fab.setAttribute('aria-expanded', 'false');
+        const path = location.pathname + location.search;
+        if (location.hash === '#ask') history.replaceState(null, '', path);
+      }
+
+      function toggleAsk() {
+        if (panel.hidden) openAsk();
+        else closeAsk();
+      }
+
+      fab.addEventListener('click', toggleAsk);
+      closeBtn?.addEventListener('click', closeAsk);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.hidden) closeAsk();
+      });
+
+      document.querySelectorAll('a[href="#ask"]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          openAsk();
+          history.replaceState(null, '', '#ask');
+        });
+      });
+
+      if (location.hash === '#ask') openAsk();
+      window.addEventListener('hashchange', () => {
+        if (location.hash === '#ask') openAsk();
+      });
+    })();
+  </script>
+
+  <script type="module">
+    const STATUS_IDLE =
+      'Knowledge is sourced from this portfolio. Optional on-device wording polish loads when you submit a question.';
+    const STATUS_LOCAL =
+      'Source: curated portfolio entries on this page.';
+    const STATUS_ENHANCING =
+      'Source: curated portfolio entries · optional on-device wording in progress…';
+    const STATUS_POLISHED =
+      'Source: curated portfolio entries · wording polished on-device (no new facts added).';
+    const STATUS_FALLBACK = 'Using smart local fallback';
+
+    const KB = [
+      {
+        id: 'smart-vehicles',
+        keywords: [
+          'joyride',
+          'yamaha',
+          'gem',
+          'vehicles',
+          'vehicle',
+          'smart',
+          'cloud',
+          'fleet',
+          'hardware',
+          'deploy',
+          'golf',
+          'cart',
+          'operator',
+          'intelligent',
+          'gem car',
+          'golf cart'
+        ],
+        title: 'Smart vehicle platform',
+        facts: [
+          'At Joyride, work focused on connecting GEM Cars and Yamaha vehicles to the cloud using aftermarket devices tailored to fleet needs.',
+          'Operators could deploy vehicles without staff on site while monitoring what they need for operations.',
+          'Outcome: remote deployment, faster diagnosis, and decisions based on usage data instead of guesswork.'
+        ]
+      },
+      {
+        id: 'telematics',
+        keywords: [
+          'telematics',
+          'pipeline',
+          'mqtt',
+          'protocol',
+          'integration',
+          'platform',
+          'rest',
+          'api',
+          'tcp',
+          'rest api',
+          'vehicle partner'
+        ],
+        title: 'Fleet telematics data pipeline',
+        facts: [
+          'Different vehicle partners sent data in different formats — some through REST APIs, some over raw TCP.',
+          'Built one platform that can talk to multiple protocol types so users do not have to manage each integration separately.',
+          'Adding a new vehicle became faster; GPS, diagnostics, and usage analytics were available across the fleet through one consistent interface.'
+        ]
+      },
+      {
+        id: 'gopal',
+        keywords: ['gopal', 'desk', 'gopal desk', 'diagnostic', 'debug', 'support', 'operations', 'tool', 'fault', 'ops'],
+        title: 'Gopal Desk',
+        facts: [
+          'As vehicle types grew, figuring out what was wrong with a vehicle was taking too long for support and ops.',
+          'Gopal Desk gives a single place to see what a device is doing, what it was doing, and why it failed — without piecing together multiple systems.',
+          'Teams could access the tool and understand the device they were working with from one page.'
+        ]
+      },
+      {
+        id: 'neon-manual',
+        keywords: [
+          'neon',
+          'joyride neon',
+          'manual',
+          'conversational',
+          'multimeter',
+          'self serve',
+          'iot install',
+          'hobbyist',
+          'step by step',
+          'install guide',
+          'installation guide'
+        ],
+        title: 'Joyride Neon IoT conversational install guide',
+        facts: [
+          'Turned the Joyride Neon IoT installation manual into a conversational experience so people could get the next install step by chatting instead of only reading a static doc.',
+          'Linked supporting articles (for example how to use a multimeter) because the Neon manual stayed focused on Joyride-specific work while many customers still had basic electronics questions.',
+          'Aimed to answer sensible beginner questions without pushing every case to a paid technician — especially important for hobbyists and enthusiasts where that cost was a barrier.',
+          'The full Neon product flow is not public on this portfolio; the corner “Ask” chat here is a smaller, similar pattern for conversational, grounded answers.'
+        ]
+      },
+      {
+        id: 'pride',
+        keywords: [
+          'pride',
+          'scooter',
+          'rental',
+          'motor',
+          'controller',
+          'firmware',
+          'mode',
+          'personal',
+          'sku',
+          'pride scooter',
+          'over the air'
+        ],
+        title: 'Pride scooter controller',
+        facts: [
+          'The same scooter needed different behaviour for rental versus personally owned use; two hardware setups were getting messy.',
+          'Worked with the controller provider on mode-switching so operators could change behaviour remotely, over the air.',
+          'One hardware configuration covers both rental and personal use, simplifying procurement and fleet management.'
+        ]
+      },
+      {
+        id: 'stack',
+        keywords: [
+          'stack',
+          'sql',
+          'metabase',
+          'navicat',
+          'gcp',
+          'google cloud',
+          'j1939',
+          'teltonika',
+          'queclink',
+          'mqtt',
+          'esp32',
+          'python',
+          'javascript',
+          'tools',
+          'tech',
+          'mixpanel',
+          'posthog',
+          'bugfender',
+          'gleap',
+          'figma',
+          'miro',
+          'can bus',
+          'can shield',
+          'cancrocodile'
+        ],
+        title: 'Tools and technologies',
+        facts: [
+          'Hands-on with data tools (SQL, Metabase, Navicat, Mixpanel, PostHog), cloud and monitoring (GCP, Bugfender, Gleap), and connectivity (TCP/IP, MQTT, AMQP).',
+          'Vehicle side: CAN (e.g. CAN Shield, Arduino, CANCrocodile, SAE J1939, Kvaser), IoT devices (Teltonika, Queclink, Astra, Omni), and APIs (REST, SOAP, firmware logic).',
+          'Also uses common product and design tooling (Figma, Miro, Jira, Confluence) and mobile tooling such as Expo Go.'
+        ]
+      },
+      {
+        id: 'role',
+        keywords: [
+          'abinash',
+          'about',
+          'product manager',
+          'background',
+          'mobility',
+          'connected',
+          'experience',
+          'your role',
+          'who are you',
+          'pm role'
+        ],
+        title: 'Role and focus',
+        facts: [
+          'Product Manager focused on mobility and connected vehicles.',
+          'Works at the intersection of hardware and software: can read CAN data and use that context for product decisions, not only coordination.',
+          'Core themes include market insight, owning metrics and SQL where needed, aligning stakeholders, and end-to-end product ownership.'
+        ]
+      },
+      {
+        id: 'booking',
+        keywords: ['book', 'schedule', 'meeting', 'call', 'calendar', 'interview', '30 min', 'cal com'],
+        title: 'Scheduling',
+        facts: [
+          'You can book a 30-minute call via the Book section on this page (embedded Cal.com, light theme).',
+          'If the calendar does not load in the iframe, use the “open in a new tab” link under the embed.'
+        ]
+      },
+      {
+        id: 'contact',
+        keywords: ['contact', 'email', 'linkedin', 'github', 'reach', 'message'],
+        title: 'Contact',
+        facts: [
+          'Email: mechbaral@gmail.com',
+          'GitHub: github.com/mechbaral',
+          'LinkedIn: linkedin.com/in/abinash-baral-telematics'
+        ]
+      }
+    ];
+
+    const DEFAULT_ENTRY = {
+      id: 'default',
+      title: 'General',
+      facts: [
+        'Abinash is a Product Manager working on connected vehicles and mobility products (see hero and About on this page).',
+        'For specifics, try naming a topic: Joyride telematics, Neon IoT install guide, Gopal Desk, Pride scooters, GEM/Yamaha, or tools in the Stack section.',
+        'To go deeper, use the Book section to schedule a call or Contact for email and profiles.'
+      ]
+    };
+
+    function tokens(s) {
+      return s
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .split(/\s+/)
+        .filter((w) => w.length > 1);
+    }
+
+    /** Multi-word phrases match only when every word appears as a query token (no substring tricks). */
+    const MIN_TOPIC_SCORE = 3;
+
+    function phraseScore(phrase, tokenSet) {
+      const words = phrase
+        .toLowerCase()
+        .trim()
+        .split(/\s+/)
+        .filter((w) => w.length > 1);
+      if (!words.length) return 0;
+      if (!words.every((w) => tokenSet.has(w))) return 0;
+      if (words.length >= 2) return 5 + words.length;
+      const w = words[0];
+      if (w.length >= 6) return 4;
+      if (w.length >= 4) return 3;
+      return 2;
+    }
+
+    function retrieve(query) {
+      const qtok = tokens(query);
+      const tokenSet = new Set(qtok);
+      if (!tokenSet.size) return { entry: DEFAULT_ENTRY, score: 0 };
+
+      let best = null;
+      let bestScore = 0;
+      for (const entry of KB) {
+        let score = 0;
+        for (const phrase of entry.keywords) {
+          score += phraseScore(phrase, tokenSet);
+        }
+        if (score > bestScore) {
+          bestScore = score;
+          best = entry;
+        }
+      }
+      if (!best || bestScore < MIN_TOPIC_SCORE) {
+        return { entry: DEFAULT_ENTRY, score: bestScore };
+      }
+      return { entry: best, score: bestScore };
+    }
+
+    function paragraphFromFacts(facts) {
+      return facts.join(' ');
+    }
+
+    let modelLoadFailed = false;
+    let pipePromise = null;
+
+    function wordOverlap(a, b) {
+      const aw = new Set(tokens(a).filter((w) => w.length > 3));
+      if (!aw.size) return 1;
+      let hit = 0;
+      for (const w of tokens(b)) {
+        if (w.length > 3 && aw.has(w)) hit++;
+      }
+      return hit / aw.size;
+    }
+
+    async function getEnhancerPipeline() {
+      if (modelLoadFailed) return null;
+      if (!pipePromise) {
+        pipePromise = (async () => {
+          try {
+            const { pipeline, env } = await import('https://esm.sh/@huggingface/transformers@3.1.2');
+            env.allowLocalModels = false;
+            env.useBrowserCache = true;
+            return await pipeline('text2text-generation', 'Xenova/flan-t5-small');
+          } catch {
+            return null;
+          }
+        })();
+      }
+      const pipe = await pipePromise;
+      if (!pipe) modelLoadFailed = true;
+      return pipe;
+    }
+
+    async function enhanceWording(factsText) {
+      if (modelLoadFailed) return null;
+      const pipe = await getEnhancerPipeline();
+      if (!pipe) return null;
+      const clipped = factsText.slice(0, 900);
+      const prompt = `One paragraph; same facts only: ${clipped}`;
+      try {
+        const out = await pipe(prompt, {
+          max_new_tokens: 160,
+          temperature: 0,
+          top_k: 5
+        });
+        const raw = Array.isArray(out) ? out[0]?.generated_text : out?.generated_text;
+        const text = typeof raw === 'string' ? raw.trim() : '';
+        if (!text || text.length < 40) return null;
+        if (wordOverlap(factsText, text) < 0.12) return null;
+        return text;
+      } catch {
+        return null;
+      }
+    }
+
+    const form = document.getElementById('askForm');
+    const input = document.getElementById('askInput');
+    const statusEl = document.getElementById('askStatus');
+    const submitBtn = document.getElementById('askSubmit');
+    const spinnerEl = document.getElementById('askSpinner');
+    const wrap = document.getElementById('askAnswerWrap');
+    const bodyEl = document.getElementById('askAnswerBody');
+    const titleEl = document.getElementById('askAnswerTitle');
+    const details = document.getElementById('askSourceDetails');
+    const bulletsEl = document.getElementById('askSourceBullets');
+
+    let askGeneration = 0;
+    let enhanceEpoch = 0;
+
+    function setStatus(text, variant) {
+      statusEl.textContent = text;
+      statusEl.classList.remove('is-fallback', 'is-ready', 'is-loading');
+      if (variant === 'fallback') statusEl.classList.add('is-fallback');
+      if (variant === 'ready') statusEl.classList.add('is-ready');
+      if (variant === 'loading') statusEl.classList.add('is-loading');
+    }
+
+    function setEnhancing(on) {
+      if (spinnerEl) spinnerEl.hidden = !on;
+      if (submitBtn) submitBtn.disabled = !!on;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = (input.value || '').trim();
+      if (!q) return;
+
+      const myGen = ++askGeneration;
+      const { entry } = retrieve(q);
+      const factsText = paragraphFromFacts(entry.facts);
+      const localParagraph = factsText;
+
+      titleEl.textContent = entry.title;
+      bodyEl.textContent = localParagraph;
+      wrap.hidden = false;
+      bulletsEl.replaceChildren(
+        ...entry.facts.map((f) => {
+          const li = document.createElement('li');
+          li.textContent = f;
+          return li;
+        })
+      );
+      details.hidden = false;
+      details.open = false;
+
+      if (modelLoadFailed) {
+        setStatus(STATUS_FALLBACK, 'fallback');
+        setEnhancing(false);
+        return;
+      }
+
+      const epoch = ++enhanceEpoch;
+      setEnhancing(true);
+      setStatus(STATUS_ENHANCING, 'loading');
+
+      (async () => {
+        try {
+          const polished = await enhanceWording(factsText);
+          if (myGen !== askGeneration) return;
+          if (polished) {
+            bodyEl.textContent = polished;
+            setStatus(STATUS_POLISHED, 'ready');
+          } else if (modelLoadFailed) {
+            setStatus(STATUS_FALLBACK, 'fallback');
+          } else {
+            setStatus(STATUS_LOCAL, null);
+          }
+        } finally {
+          if (epoch === enhanceEpoch) setEnhancing(false);
+        }
+      })();
+    });
+
+    if (statusEl) statusEl.textContent = STATUS_IDLE;
   </script>
 </body>
 </html>
